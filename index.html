@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مركز المستقبل التقني | حلول شبكات وكاميرات مراقبة وصيانة</title>
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome للأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<div class="top-bar">
+    <div class="container top-bar-container">
+        <div class="top-info">
+            <span><i class="fa-solid fa-phone"></i> 01157143707</span>
+            <span><i class="fa-solid fa-location-dot"></i> طنطا - الغربية</span>
+        </div>
+        <div class="social-links">
+            <a href="https://www.facebook.com/profile.php?id=61590281375415&mibextid=wwXIfr&mibextid=wwXIfr" target="_blank" title="فيسبوك"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://wa.me/201157143707" target="_blank" title="واتساب"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="https://www.instagram.com/f.t.c0115?stkn=cDlyYjg0cHFiYXky&utm_source=qr" target="_blank" title="إنستغرام"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://youtube.com/@hassanailgorab1691?si=_Z9u1-JqxYtOEbGi" target="_blank" title="يوتيوب"><i class="fa-brands fa-youtube"></i></a>
+            <a href="https://www.tiktok.com/@user246053023?_r=1&_t=ZS-99auRT5zLPh" target="_blank" title="تيك توك"><i class="fa-brands fa-tiktok"></i></a>
+        </div>
+    </div>
+</div>
+    <!-- الهيدر وشريط التنقل -->
+    <header class="main-header">
+        <div class="container header-container">
+           <div class="logo">
+    <a href="#home">
+        <!-- استبدل images/logo.png بمسار صورة اللوجو لديك -->
+        <img src="logo.png" alt="مركز المستقبل التقني" class="logo-img">
+        <h2>المستقبل <span>التقني</span></h2>
+    </a>
+</div>
+            <nav class="nav-links">
+                <ul>
+                    <li><a href="#home" class="active">الرئيسية</a></li>
+                    <li><a href="#services">الخدمات</a></li>
+                    <li><a href="#products">المتجر</a></li>
+                    <li><a href="#courses">التدريب</a></li>
+                    <li><a href="#maintenance">طلب صيانة/معاينة</a></li>
+                    <li><a href="#contact">اتصل بنا</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="#cart" class="cart-btn"><i class="fa-solid fa-cart-shopping"></i> <span id="cart-count">0</span></a>
+                <a href="#maintenance" class="btn-primary">طلب معاينة</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- القسم الرئيسي (Hero Section) مع سلايدر خلفيات متحرك -->
+<section id="home" class="hero-slider">
+    <!-- الشرائح (الصور المتحركة) -->
+    <div class="slide active" style="background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('images/hero-bg.jpg');"></div>
+    <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('images/cameras-bg.jpg');"></div>
+    <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('images/networks-bg.jpg');"></div>
+    <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('images/Hikvision.jpg');"></div>
+
+    <!-- محتوى السلايدر الثابت -->
+    <div class="container hero-container">
+        <div class="hero-content">
+            <h1>الحلول التقنية والأمنية المتكاملة لشركتك وبيتك</h1>
+            <p>توريد وتركيب كاميرات المراقبة، تصميم الشبكات والسيرفرات، أجهزة الحضور والانصراف، وخدمات الصيانة المعتمدة في طنطا والغربية.</p>
+            <div class="hero-btns">
+                <a href="#products" class="btn-primary">تصفح المنتجات</a>
+                <a href="https://wa.me/201157143707?text=السلام%20عليهم،%20أريد%20الاستفسار%20عن%20الخدمات" target="_blank" class="btn-whatsapp">
+                    <i class="fa-brands fa-whatsapp"></i> تواصل عبر الواتساب
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- أسهم التنقل -->
+    <button class="slider-btn prev-btn" onclick="changeSlide(-1)"><i class="fa-solid fa-chevron-right"></i></button>
+    <button class="slider-btn next-btn" onclick="changeSlide(1)"><i class="fa-solid fa-chevron-left"></i></button>
+
+    <!-- مؤشرات النقاط أسفل السلايدر -->
+    <div class="slider-dots">
+        <span class="dot active" onclick="currentSlide(0)"></span>
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+
+    </div>
+</section>
+<!-- قسم المتجر والمنتجات -->
+<section id="products" class="products-section">
+    <div class="container">
+        <h2 class="section-title">أحدث المنتجات والعروض</h2>
+        
+        <!-- شبكة المنتجات -->
+        <div class="products-grid">
+            
+            <!-- منتج 1 -->
+            <div class="product-card">
+                <img src="images/Hikvision.jpg" alt="كاميرا مراقبة IP">
+                <h3>كاميرا مراقبة Hikvision 5MP IP</h3>
+                <p class="description">رؤية ليلية ملونة، مقاومة للماء والعوامل الجوية.</p>
+                <div class="price-container">
+                    <span class="price">1250 ج.م</span>
+                </div>
+                <button class="btn-primary add-to-cart-btn" onclick="addToCart('كاميرا Hikvision 5MP', 1250)">
+                    <i class="fa-solid fa-cart-plus"></i> أضف للسلة
+                </button>
+            </div>
+
+            <!-- منتج 2 -->
+            <div class="product-card">
+                <img src="images/phngar.jpg" alt="جهاز بصمة">
+                <h3>جهاز بصمة حضور وانصراف ZKTeco</h3>
+                <p class="description">يدعم البصمة، الكارت، وكلمة السر مع برنامج التقارير.</p>
+                <div class="price-container">
+                    <span class="price">3400 ج.م</span>
+                </div>
+                <button class="btn-primary add-to-cart-btn" onclick="addToCart('جهاز بصمة ZKTeco', 3400)">
+                    <i class="fa-solid fa-cart-plus"></i> أضف للسلة
+                </button>
+            </div>
+
+            <!-- منتج 3 -->
+            <div class="product-card">
+                <img src="images/prant.png" alt="طابعة ليزر">
+                <h3>طابعة HP Laserjet Pro</h3>
+                <p class="description">طابعة ليزر أسود، أداء عالي وسرعة في الطباعة للشركات.</p>
+                <div class="price-container">
+                    <span class="price">6800 ج.م</span>
+                </div>
+                <button class="btn-primary add-to-cart-btn" onclick="addToCart('طابعة HP Laserjet Pro', 6800)">
+                    <i class="fa-solid fa-cart-plus"></i> أضف للسلة
+                </button>
+            </div>
+
+            <!-- منتج 4 -->
+            <div class="product-card">
+                <img src="images/swatch.png" alt="سويتش شبكات">
+                <h3>سويتش شبكات TP-Link 16 Port</h3>
+                <p class="description">سويتش سرعات عالية مناسب لتأسيس الشبكات.</p>
+                <div class="price-container">
+                    <span class="price">2100 ج.م</span>
+                </div>
+                <button class="btn-primary add-to-cart-btn" onclick="addToCart('سويتش TP-Link 16 Port', 2100)">
+                    <i class="fa-solid fa-cart-plus"></i> أضف للسلة
+                </button>
+            </div>
+
+                      <!-- منتج 1 -->
+            <div class="product-card">
+                <img src="https://via.placeholder.com/250x200" alt="كاميرا مراقبة IP">
+                <h3>كاميرا مراقبة Hikvision 5MP IP</h3>
+                <p class="description">رؤية ليلية ملونة، مقاومة للماء والعوامل الجوية.</p>
+                <div class="price-container">
+                    <span class="price">1250 ج.م</span>
+                </div>
+                <button class="btn-primary add-to-cart-btn" onclick="addToCart('كاميرا Hikvision 5MP', 1250)">
+                    <i class="fa-solid fa-cart-plus"></i> أضف للسلة
+                </button>
+            </div>
+
+            <!-- منتج 2 -->
+            <div class="product-card">
+                <img src="https://via.placeholder.com/250x200" alt="جهاز بصمة">
+                <h3>جهاز بصمة حضور وانصراف ZKTeco</h3>
+                <p class="description">يدعم البصمة، الكارت، وكلمة السر مع برنامج التقارير.</p>
+                <div class="price-container">
+                    <span class="price">3400 ج.م</span>
+                </div>
+                <button class="btn-primary add-to-cart-btn" onclick="addToCart('جهاز بصمة ZKTeco', 3400)">
+                    <i class="fa-solid fa-cart-plus"></i> أضف للسلة
+                </button>
+            </div>
+
+            <!-- منتج 3 -->
+            <div class="product-card">
+                <img src="https://via.placeholder.com/250x200" alt="طابعة ليزر">
+                <h3>طابعة HP Laserjet Pro</h3>
+                <p class="description">طابعة ليزر أسود، أداء عالي وسرعة في الطباعة للشركات.</p>
+                <div class="price-container">
+                    <span class="price">6800 ج.م</span>
+                </div>
+                <button class="btn-primary add-to-cart-btn" onclick="addToCart('طابعة HP Laserjet Pro', 6800)">
+                    <i class="fa-solid fa-cart-plus"></i> أضف للسلة
+                </button>
+            </div>
+
+            <!-- منتج 4 -->
+            <div class="product-card">
+                <img src="https://via.placeholder.com/250x200" alt="سويتش شبكات">
+                <h3>سويتش شبكات TP-Link 16 Port</h3>
+                <p class="description">سويتش سرعات عالية مناسب لتأسيس الشبكات.</p>
+                <div class="price-container">
+                    <span class="price">2100 ج.م</span>
+                </div>
+                <button class="btn-primary add-to-cart-btn" onclick="addToCart('سويتش TP-Link 16 Port', 2100)">
+                    <i class="fa-solid fa-cart-plus"></i> أضف للسلة
+                </button>
+            </div>
+
+    
+        </div>
+    </div>
+    
+</section>
+
+<!-- نافذة سلة الشراء (Cart Modal) -->
+<div id="cartModal" class="cart-modal">
+    <div class="cart-content">
+        <span class="close-btn" onclick="toggleCart()">&times;</span>
+        <h2>سلة الشراء <i class="fa-solid fa-cart-shopping"></i></h2>
+        <div id="cartItemsList">
+            <p>السلة فارغة حالياً</p>
+        </div>
+        <div class="cart-summary">
+            <h3>الإجمالي: <span id="cartTotal">0</span> ج.م</h3>
+            <button class="btn-whatsapp btn-block" onclick="checkoutWhatsApp()">إتمام الطلب عبر الواتساب <i class="fa-brands fa-whatsapp"></i></button>
+        </div>
+    </div>
+</div>
+<!-- قسم الكورسات والتدريب -->
+<section id="courses" class="courses-section">
+    <div class="container">
+        <h2 class="section-title">الأكاديمية والورش التدريبية</h2>
+        <p class="section-subtitle">دبلومات ورش عمل عملي لتأهيل الفنيين والمهندسين لسوق العمل</p>
+
+        <div class="courses-grid">
+            
+            <!-- كورس 1 -->
+            <div class="course-card">
+                <div class="course-badge">عملي 100%</div>
+                <div class="course-icon"><i class="fa-solid fa-video"></i></div>
+                <h3>دبلومة تركيب وتبرمج أنظمة الكاميرات</h3>
+                <p>تعلم تركيب الكاميرات (IP & Analog)، الربط الشبكي، إعداد الـ DVR/NVR، والربط بالموبايل.</p>
+                <ul class="course-features">
+                    <li><i class="fa-solid fa-check"></i> المدة: 4 أسابيع (8 محاضرات)</li>
+                    <li><i class="fa-solid fa-check"></i> تطبيق عملي على أجهزة حقيقية</li>
+                    <li><i class="fa-solid fa-check"></i> شهادة معتمدة من المركز</li>
+                </ul>
+                <div class="course-price">1800 ج.م</div>
+                <button class="btn-primary btn-block" onclick="openEnrollModal('دبلومة تركيب أنظمة الكاميرات', 1800)">حجز مكان في الدورة</button>
+            </div>
+
+            <!-- كورس 2 -->
+            <div class="course-card">
+                <div class="course-badge">مطلوب جداً</div>
+                <div class="course-icon"><i class="fa-solid fa-network-wired"></i></div>
+                <h3>ورشة احتراف الشبكات والكوابل</h3>
+                <p>تأسيس الشبكات المباشرة، التأريض، الأراجوزات، برمجة السويتشات والكابينة للمؤسسات.</p>
+                <ul class="course-features">
+                    <li><i class="fa-solid fa-check"></i> المدة: أسبوعين (4 محاضرات)</li>
+                    <li><i class="fa-solid fa-check"></i> تجهيز مشاريع شبكات فعلياً</li>
+                    <li><i class="fa-solid fa-check"></i> دعم فني بعد الكورس</li>
+                </ul>
+                <div class="course-price">1200 ج.م</div>
+                <button class="btn-primary btn-block" onclick="openEnrollModal('ورشة احتراف الشبكات والكوابل', 1200)">حجز مكان في الدورة</button>
+            </div>
+
+            <!-- كورس 3 -->
+            <div class="course-card">
+                <div class="course-badge">جديد</div>
+                <div class="course-icon"><i class="fa-solid fa-fingerprint"></i></div>
+                <h3>دورة أجهزة البصمة والتحكم بالأبواب (Access Control)</h3>
+                <p>تركيب وتوصيل أجهزة الحضور والانصراف وبرمجتها مع أنظمة المرتبات والأبواب الذكية.</p>
+                <ul class="course-features">
+                    <li><i class="fa-solid fa-check"></i> المدة: 3 أسابيع (6 محاضرات)</li>
+                    <li><i class="fa-solid fa-check"></i> تدريب على أشهر البرامج (ZKTeco)</li>
+                    <li><i class="fa-solid fa-check"></i> شهادة خبرة معتمدة</li>
+                </ul>
+                <div class="course-price">1500 ج.م</div>
+                <button class="btn-primary btn-block" onclick="openEnrollModal('دورة أجهزة البصمة والتحكم بالأبواب', 1500)">حجز مكان في الدورة</button>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- نافذة التسجيل في الكورس (Modal) -->
+<div id="courseModal" class="cart-modal">
+    <div class="cart-content">
+        <span class="close-btn" onclick="closeEnrollModal()">&times;</span>
+        <h2 id="modalCourseTitle">التسجيل في الكورس</h2>
+        <form id="courseEnrollForm">
+            <input type="hidden" id="selectedCourseName">
+            <div class="form-group" style="margin-top:15px;">
+                <label>الاسم بالكامل:</label>
+                <input type="text" id="studentName" required placeholder="أدخل اسمك الثلاثي">
+            </div>
+            <div class="form-group">
+                <label>رقم الهاتف / الواتساب:</label>
+                <input type="tel" id="studentPhone" required placeholder="01xxxxxxxx">
+            </div>
+            <div class="form-group">
+                <label>المستوى الحالي:</label>
+                <select id="studentLevel">
+                    <option value="مبتدئ">مبتدئ (لا يوجد خبرة)</option>
+                    <option value="فني متوسط">فني (أبحث عن تطوير المهارة)</option>
+                    <option value="طالب/مهندس">طالب / مهندس حديث التخرج</option>
+                </select>
+            </div>
+            <button type="submit" class="btn-whatsapp btn-block">تأكيد الحجز عبر الواتساب <i class="fa-brands fa-whatsapp"></i></button>
+        </form>
+    </div>
+</div>
+    <!-- قسم الخدمات -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">خدماتنا المتميزة</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fa-solid fa-video icon"></i>
+                    <h3>كاميرات المراقبة</h3>
+                    <p>تركيب وتوريد أحدث أنظمة الكاميرات (IP & Analog) للمنازل والشركات مع الضمان.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fa-solid fa-network-wired icon"></i>
+                    <h3>الشبكات والسيرفرات</h3>
+                    <p>تأسيس البنية التحتية للشبكات، السيرفرات، وتجهيز كبائن الاتصالات للمؤسسات.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fa-solid fa-fingerprint icon"></i>
+                    <h3>أجهزة البصمة</h3>
+                    <p>أنظمة الحضور والانصراف بالبصمة والوجه للتحكم الكامل في مواعيد العمل.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fa-solid fa-screwdriver-wrench icon"></i>
+                    <h3>الصيانة والدعم الفني</h3>
+                    <p>صيانة الطابعات والأجهزة وعقود صيانة سنوية شاملة للشركات.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- نموذج طلب معاينة/صيانة يرسل إلى الواتساب -->
+    <section id="maintenance" class="maintenance-form-section">
+        <div class="container">
+            <h2 class="section-title">حجز معاينة أو طلب صيانة</h2>
+            <form id="whatsappForm" class="form-container">
+                <div class="form-group">
+                    <label for="name">الاسم بالكامل:</label>
+                    <input type="text" id="name" required placeholder="أدخل اسمك">
+                </div>
+                <div class="form-group">
+                    <label for="phone">رقم الهاتف:</label>
+                    <input type="tel" id="phone" required placeholder="01xxxxxxxx">
+                </div>
+                <div class="form-group">
+                    <label for="service_type">نوع الخدمة المطلوب:</label>
+                    <select id="service_type">
+                        <option value="معاينة كاميرات مراقبة">معاينة تركيب كاميرات</option>
+                        <option value="تأسيس شبكة/سيرفرات">تأسيس شبكات/سيرفرات</option>
+                        <option value="صيانة أجهزة/طابعات">صيانة أجهزة / طابعات</option>
+                        <option value="تركيب جهاز بصمة">تركيب جهاز حضور وانصراف</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="address">العنوان (طنطا / الغربية / محافظة أخرى):</label>
+                    <input type="text" id="address" required placeholder="أدخل عنوانك التفصيلي">
+                </div>
+                <button type="submit" class="btn-primary btn-block">إرسال الطلب عبر الواتساب <i class="fa-brands fa-whatsapp"></i></button>
+            </form>
+        </div>
+    </section>
+
+    <!-- JS Script -->
+    <script src="main.js"></script>
+</body>
+</html>
+<!-- أسفل الموقع (Footer) -->
+<footer id="contact" class="main-footer">
+    <div class="container footer-container">
+        <div class="footer-col">
+            <h3>مركز المستقبل التقني</h3>
+            <p>حلول تقنية وأمنية متكاملة، توريد وتركيب كاميرات المراقبة، الشبكات، السيرفرات، وأجهزة البصمة والصيانة في طنطا والغربية.</p>
+            <div class="footer-social">
+                <a href="https://www.facebook.com/profile.php?id=61590281375415&mibextid=wwXIfr&mibextid=wwXIfr" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://wa.me/201157143707" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="https://www.instagram.com/f.t.c0115?stkn=cDlyYjg0cHFiYXky&utm_source=qr" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://youtube.com/@hassanailgorab1691?si=_Z9u1-JqxYtOEbGi" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                <a href="https://www.tiktok.com/@user246053023?_r=1&_t=ZS-99auRT5zLPh" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+            </div>
+        </div>
+
+        <div class="footer-col">
+            <h3>روابط سريعة</h3>
+            <ul>
+                <li><a href="#services">خدماتنا</a></li>
+                <li><a href="#products">متجر المنتجات</a></li>
+                <li><a href="#courses">الدورات التدريبية</a></li>
+                <li><a href="#maintenance">حجز صيانة ومعاينة</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h3>تواصل معنا</h3>
+            <p><i class="fa-solid fa-location-dot"></i> طنطا - محافظة الغربية</p>
+            <p><i class="fa-solid fa-phone"></i> 01157143707</p>
+            <p><i class="fa-solid fa-envelope"></i> info@almustaqbal-tech.com</p>
+        </div>
+    </div>
+    <div class="copyright">
+        <p>جميع الحقوق محفوظة &copy; لمركز المستقبل التقني</p>
+    </div>
+</footer>
