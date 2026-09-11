@@ -402,7 +402,7 @@ const productsData = [
         category: "camera",
         price: 1200,
         oldPrice: 1400,
-        image: "images/camera1.jpg"
+        image: "camera1.jpg"
     },
     {
         id: 2,
@@ -410,7 +410,7 @@ const productsData = [
         category: "fingerprint",
         price: 2500,
         oldPrice: null,
-        image: "images/fingerprint1.jpg"
+        image: "fingerprint1.jpg"
     },
     {
         id: 3,
@@ -418,7 +418,7 @@ const productsData = [
         category: "network",
         price: 1800,
         oldPrice: 2000,
-        image: "images/network1.jpg"
+        image: "network1.jpg"
     }
 ];
 
