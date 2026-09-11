@@ -422,31 +422,5 @@ const productsData = [
     }
 ];
 
-// دالة عرض المنتجات في المتجر
-function renderStoreProducts() {
-    const productsGrid = document.querySelector('.products-grid');
-    if (!productsGrid) return;
 
-    productsGrid.innerHTML = '';
-
-    productsData.forEach(product => {
-        const productHTML = `
-            <div class="product-card" data-category="${product.category}">
-                <div class="product-img-holder">
-                    <img src="${product.image}" alt="${product.title}" onerror="this.src='logo.png'">
-                </div>
-                <div class="product-info">
-                    <h3>${product.title}</h3>
-                    <div class="price-container">
-                        <span class="price">${product.price} ج.م</span>
-                        ${product.oldPrice ? `<span class="old-price">${product.oldPrice} ج.م</span>` : ''}
-                    </div>
-                </div>
-            </div>
-        `;
-        productsGrid.innerHTML += productHTML;
-    });
-}
-
-document.addEventListener('DOMContentLoaded', renderStoreProducts);
    // قراءة
