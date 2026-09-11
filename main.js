@@ -278,3 +278,188 @@ function closeMenu() {
         menuBtnIcon.className = 'fa-solid fa-bars';
     }
 }
+// قراءة وتوزيع المنتجات حسب الأقسام
+function loadOffersToStore() {
+    const productsGrid = document.querySelector('.products-grid');
+    const storedOffers = JSON.parse(localStorage.getItem('myOffers'));
+
+    if (!storedOffers || storedOffers.length === 0) return;
+
+    productsGrid.innerHTML = '';
+
+    storedOffers.forEach(offer => {
+        if (offer.hidden) return; // إخفاء المنتجات المعطلة
+
+        const productHTML = `
+            <div class="product-card" data-category="${offer.category}">
+                <span class="product-badge sale">جديد</span>
+                <div class="product-img-holder" onclick="openImageModal(this.querySelector('img').src, '${offer.title}')">
+                    <img src="${offer.image}" alt="${offer.title}">
+                    <div class="zoom-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="product-info">
+                    <span class="category-name">${getCategoryName(offer.category)}</span>
+                    <h3>${offer.title}</h3>
+                    <div class="price-container">
+                        <span class="price">${offer.price} ج.م</span>
+                        ${offer.oldPrice ? `<span class="old-price">${offer.oldPrice} ج.م</span>` : ''}
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn-primary add-to-cart-btn" onclick="addToCart('${offer.title}', ${offer.price})">
+                            <i class="fa-solid fa-cart-plus"></i> أضف للسلة
+                        </button>
+                        <a href="https://wa.me/201157143707?text=استفسار%20عن%20${encodeURIComponent(offer.title)}" target="_blank" class="quick-buy-btn">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        `;
+        productsGrid.innerHTML += productHTML;
+    });
+}
+
+// دالة لتصفية المنتجات حسب الزر المكبوس
+function filterProducts(category) {
+    const cards = document.querySelectorAll('.product-card');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+
+    // تفعيل الزر النشط
+    filterBtns.forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+
+    // إظهار وإخفاء الكروت بناءً على القسم
+    cards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', loadOffersToStore);
+
+// القائمة الافتراضية للمنتجات (في حال لم يتم إضافة منتجات من لوحة التحكم بعد)
+const defaultProducts = [
+    {
+        id: 1,
+        title: "كاميرا مراقبة Hikvision 5MP IP",
+        category: "camera",
+        price: 1250,
+        oldPrice: 1500,
+        image: "images/Hikvision.jpg",
+        hidden: false
+    },
+    {
+        id: 2,
+        title: "جهاز بصمة حضور وانصراف ZKTeco",
+        category: "fingerprint",
+        price: 3400,
+        oldPrice: null,
+        image: "images/phngar.jpg",
+        hidden: false
+    },
+    {
+        id: 3,
+        title: "طابعة HP Laserjet Pro",
+        category: "printer",
+        price: 6800,
+        oldPrice: null,
+        image: "images/prant.png",
+        hidden: false
+    },
+    {
+        id: 4,
+        title: "سويتش شبكات TP-Link 16 Port",
+        category: "network",
+        price: 2100,
+        oldPrice: 2350,
+        image: "images/swatch.png",
+        hidden: false
+    }
+];
+
+// دالة تحويل رمز القسم إلى اسم عربي
+function getCategoryName(cat) {
+    const categories = {
+        'camera': 'كاميرات مراقبة',
+        'fingerprint': 'أجهزة بصمة',
+        'printer': 'طابعات ومستلزمات',
+        'network': 'معدات شبكات'
+    };
+    return categories[cat] || 'منتجات عامة';
+}
+
+// دالة جلب وعرض المنتجات من الـ LocalStorage
+function loadOffersToStore() {
+    const productsGrid = document.querySelector('.products-grid');
+    if (!productsGrid) return; // حماية في حال عدم وجود العنصر
+
+    // قراءة البيانات من لوحة التحكم أو استخدام القائمة الافتراضية
+    let storedOffers = JSON.parse(localStorage.getItem('myOffers'));
+    
+    if (!storedOffers || storedOffers.length === 0) {
+        storedOffers = defaultProducts;
+        localStorage.setItem('myOffers', JSON.stringify(defaultProducts));
+    }
+
+    // تفريغ المحتوى وإعادة البناء
+    productsGrid.innerHTML = '';
+
+    storedOffers.forEach(offer => {
+        // تجاهل المنتجات المخفية من لوحة التحكم
+        if (offer.hidden) return;
+
+        const productHTML = `
+            <div class="product-card" data-category="${offer.category}">
+                ${offer.oldPrice ? '<span class="product-badge sale">خصم خاص</span>' : '<span class="product-badge">جديد</span>'}
+                <div class="product-img-holder" onclick="openImageModal(this.querySelector('img').src, '${offer.title}')">
+                    <img src="${offer.image}" alt="${offer.title}" onerror="this.src='logo.png'">
+                    <div class="zoom-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="product-info">
+                    <span class="category-name">${getCategoryName(offer.category)}</span>
+                    <h3>${offer.title}</h3>
+                    <div class="price-container">
+                        <span class="price">${offer.price} ج.م</span>
+                        ${offer.oldPrice ? `<span class="old-price">${offer.oldPrice} ج.م</span>` : ''}
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn-primary add-to-cart-btn" onclick="addToCart('${offer.title}', ${offer.price})">
+                            <i class="fa-solid fa-cart-plus"></i> أضف للسلة
+                        </button>
+                        <a href="https://wa.me/201157143707?text=استفسار%20عن%20${encodeURIComponent(offer.title)}" target="_blank" class="quick-buy-btn" title="شراء عبر الواتساب">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        `;
+        productsGrid.innerHTML += productHTML;
+    });
+}
+
+// دالة تصفية المنتجات حسب التصنيف (الفلاتر)
+function filterProducts(category) {
+    const cards = document.querySelectorAll('.product-card');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+
+    // تغيير الزر النشط
+    filterBtns.forEach(btn => btn.classList.remove('active'));
+    if (event && event.target) {
+        event.target.classList.add('active');
+    }
+
+    // إظهار وإخفاء الكروت
+    cards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
+// تشغيل جلب البيانات فور تحميل الصفحة بالكامل
+document.addEventListener('DOMContentLoaded', loadOffersToStore);
