@@ -348,7 +348,7 @@ const defaultProducts = [
         category: "camera",
         price: 1250,
         oldPrice: 1500,
-        image: "images/Hikvision.jpg",
+        image: "Hikvision.jpg",
         hidden: false
     },
     {
@@ -357,7 +357,7 @@ const defaultProducts = [
         category: "fingerprint",
         price: 3400,
         oldPrice: null,
-        image: "images/phngar.jpg",
+        image: "phngar.jpg",
         hidden: false
     },
     {
@@ -366,7 +366,7 @@ const defaultProducts = [
         category: "printer",
         price: 6800,
         oldPrice: null,
-        image: "images/prant.png",
+        image: "prant.png",
         hidden: false
     },
     {
@@ -375,7 +375,7 @@ const defaultProducts = [
         category: "network",
         price: 2100,
         oldPrice: 2350,
-        image: "images/swatch.png",
+        image: "swatch.png",
         hidden: false
     }
 ];
