@@ -394,44 +394,52 @@ function getCategoryName(cat) {
 // دالة جلب وعرض المنتجات من الـ LocalStorage
 function loadOffersToStore() {
     const productsGrid = document.querySelector('.products-grid');
-    if (!productsGrid) return; // حماية في حال عدم وجود العنصر
-
-    // قراءة البيانات من لوحة التحكم أو استخدام القائمة الافتراضية
-    let storedOffers = JSON.parse(localStorage.getItem('myOffers'));
-    
-    if (!storedOffers || storedOffers.length === 0) {
-        storedOffers = defaultProducts;
-        localStorage.setItem('myOffers', JSON.stringify(defaultProducts));
+    if (!productsGrid) return; // حماية في حال عدم وجود // قائمة المنتجات المعروضة في المتجر مباشرة
+const productsData = [
+    {
+        id: 1,
+        title: "كاميرا مراقبة Hikvision 5MP IP",
+        category: "camera",
+        price: 1200,
+        oldPrice: 1400,
+        image: "images/camera1.jpg"
+    },
+    {
+        id: 2,
+        title: "جهاز بصمة حضور وانصراف ZKTeco",
+        category: "fingerprint",
+        price: 2500,
+        oldPrice: null,
+        image: "images/fingerprint1.jpg"
+    },
+    {
+        id: 3,
+        title: "راوتر وسويتش شبكات TP-Link 16 Port",
+        category: "network",
+        price: 1800,
+        oldPrice: 2000,
+        image: "images/network1.jpg"
     }
+];
 
-    // تفريغ المحتوى وإعادة البناء
+// دالة عرض المنتجات في المتجر
+function renderStoreProducts() {
+    const productsGrid = document.querySelector('.products-grid');
+    if (!productsGrid) return;
+
     productsGrid.innerHTML = '';
 
-    storedOffers.forEach(offer => {
-        // تجاهل المنتجات المخفية من لوحة التحكم
-        if (offer.hidden) return;
-
+    productsData.forEach(product => {
         const productHTML = `
-            <div class="product-card" data-category="${offer.category}">
-                ${offer.oldPrice ? '<span class="product-badge sale">خصم خاص</span>' : '<span class="product-badge">جديد</span>'}
-                <div class="product-img-holder" onclick="openImageModal(this.querySelector('img').src, '${offer.title}')">
-                    <img src="${offer.image}" alt="${offer.title}" onerror="this.src='logo.png'">
-                    <div class="zoom-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            <div class="product-card" data-category="${product.category}">
+                <div class="product-img-holder">
+                    <img src="${product.image}" alt="${product.title}" onerror="this.src='logo.png'">
                 </div>
                 <div class="product-info">
-                    <span class="category-name">${getCategoryName(offer.category)}</span>
-                    <h3>${offer.title}</h3>
+                    <h3>${product.title}</h3>
                     <div class="price-container">
-                        <span class="price">${offer.price} ج.م</span>
-                        ${offer.oldPrice ? `<span class="old-price">${offer.oldPrice} ج.م</span>` : ''}
-                    </div>
-                    <div class="product-actions">
-                        <button class="btn-primary add-to-cart-btn" onclick="addToCart('${offer.title}', ${offer.price})">
-                            <i class="fa-solid fa-cart-plus"></i> أضف للسلة
-                        </button>
-                        <a href="https://wa.me/201157143707?text=استفسار%20عن%20${encodeURIComponent(offer.title)}" target="_blank" class="quick-buy-btn" title="شراء عبر الواتساب">
-                            <i class="fa-brands fa-whatsapp"></i>
-                        </a>
+                        <span class="price">${product.price} ج.م</span>
+                        ${product.oldPrice ? `<span class="old-price">${product.oldPrice} ج.م</span>` : ''}
                     </div>
                 </div>
             </div>
@@ -440,26 +448,5 @@ function loadOffersToStore() {
     });
 }
 
-// دالة تصفية المنتجات حسب التصنيف (الفلاتر)
-function filterProducts(category) {
-    const cards = document.querySelectorAll('.product-card');
-    const filterBtns = document.querySelectorAll('.filter-btn');
-
-    // تغيير الزر النشط
-    filterBtns.forEach(btn => btn.classList.remove('active'));
-    if (event && event.target) {
-        event.target.classList.add('active');
-    }
-
-    // إظهار وإخفاء الكروت
-    cards.forEach(card => {
-        if (category === 'all' || card.getAttribute('data-category') === category) {
-            card.style.display = 'block';
-        } else {
-            card.style.display = 'none';
-        }
-    });
-}
-
-// تشغيل جلب البيانات فور تحميل الصفحة بالكامل
-document.addEventListener('DOMContentLoaded', loadOffersToStore);
+document.addEventListener('DOMContentLoaded', renderStoreProducts);
+   // قراءة
