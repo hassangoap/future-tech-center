@@ -1,15 +1,81 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+    <!-- Google tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مركز المستقبل التقني | حلول شبكات وكاميرات مراقبة وصيانة</title>
+    <meta name="robots" content="index, follow">
+    
+    <!-- الوسوم المحسنة لـ SEO Local -->
+    <title>مركز المستقبل التقني | كاميرات مراقبة وأجهزة بصمة بطنطا والغربية</title>
+    <meta name="description" content="مركز المستقبل التقني بطنطا والغربية: أفضل أسعار كاميرات المراقبة، أجهزة البصمة، الطابعات، ومعدات الشبكات. توريد وتركيب وصيانة معتمدة لجميع المنشآت والشركات.">
     <meta name="google-site-verification" content="5onyfhr3dR5cWJ54kMBF8x5bRcBzAwcxnkwm7db2m1s" />
-    <!-- CSS Link -->
-    <link rel="stylesheet" href="style.css">
-    <!-- FontAwesome للأيقونات -->
+    <!-- وسوم Open Graph للظهور الاحترافي عند المشاركة على الواتساب وفيسبوك -->
+    <meta property="og:title" content="مركز المستقبل التقني - طنطا والغربية">
+    <meta property="og:description" content="حلول أنظمة الأمان والشبكات، كاميرات مراقبة، أجهزة بصمة، وطابعات بخصومات خاصة.">
+    <meta property="og:image" content="https://yourdomain.com/logo.png">
+    <meta property="og:type" content="website">
+
+    <!-- مكتبة الأيقونات FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- بيانات هياكل Schema.org لربط الموقع بمدينة طنطا محلياً لـ Google Maps و Google Search -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "مركز المستقبل التقني",
+      "image": "https://yourdomain.com/logo.png",
+      "telephone": "+201157143707",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "طنطا",
+        "addressRegion": "محافظة الغربية",
+        "addressCountry": "EG"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 30.7865,
+        "longitude": 31.0004
+      },
+      "priceRange": "$$",
+      "description": "مركز متخصص في كاميرات المراقبة، أجهزة البصمة، الطابعات، وأنظمة الشبكات بطنطا والغربية"
+    }
+    </script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ComputerStore",
+  "name": "مركز المستقبل التقني",
+  "image": "https://yourdomain.com/logo.png",
+  "telephone": "+201157143707",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "طنطا، البحر / الجلاء",
+    "addressLocality": "طنطا",
+    "addressRegion": "محافظة الغربية",
+    "addressCountry": "EG"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 30.7865,
+    "longitude": 31.0004
+  },
+  "areaServed": ["طنطا", "المحلة الكبرى", "زفتى", "كفر الزيات", "الغربية"],
+  "priceRange": "$$"
+}
+</script>
 </head>
+
 <body>
 <div class="top-bar">
     <div class="container top-bar-container">
@@ -68,10 +134,10 @@
     <!-- القسم الرئيسي (Hero Section) مع سلايدر خلفيات متحرك -->
 <section id="home" class="hero-slider">
     <!-- الشرائح (الصور المتحركة) -->
-    <div class="slide active" style="background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('hero-bg.jpg');"></div>
-    <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('cameras-bg.jpg');"></div>
-    <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('networks-bg.jpg');"></div>
-    <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('Hikvision.jpg');"></div>
+    <div class="slide active" style="background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('images/hero-bg.jpg');"></div>
+    <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('images/cameras-bg.jpg');"></div>
+    <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('images/networks-bg.jpg');"></div>
+    <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('images/Hikvision.jpg');"></div>
 
     <!-- محتوى السلايدر الثابت -->
     <div class="container hero-container">
@@ -120,107 +186,7 @@
         <!-- شبكة المنتجات -->
         <div class="products-grid">
             
-            <!-- منتج 1 -->
-            <div class="product-card" data-category="camera">
-                <span class="product-badge sale">الأكثر مبيعاً</span>
-                <div class="product-img-holder" onclick="openImageModal(this.querySelector('img').src, 'كاميرا مراقبة Hikvision 5MP IP')">
-                    <img src="Hikvision.jpg" alt="كاميرا مراقبة IP">
-                    <div class="zoom-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
-                </div>
-                <div class="product-info">
-                    <span class="category-name">كاميرات مراقبة</span>
-                    <h3>كاميرا مراقبة Hikvision 5MP IP</h3>
-                    <p class="description">رؤية ليلية ملونة، مقاومة للماء والعوامل الجوية.</p>
-                    <div class="price-container">
-                        <span class="price">1,250 ج.م</span>
-                        <span class="old-price">1,500 ج.م</span>
-                    </div>
-                    <div class="product-actions">
-                        <button class="btn-primary add-to-cart-btn" onclick="addToCart('كاميرا Hikvision 5MP', 1250)">
-                            <i class="fa-solid fa-cart-plus"></i> أضف للسلة
-                        </button>
-                        <a href="https://wa.me/201157143707?text=استفسار%20عن%20كاميرا%20Hikvision%205MP" target="_blank" class="quick-buy-btn" title="شراء سريع عبر الواتساب">
-                            <i class="fa-brands fa-whatsapp"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- منتج 2 -->
-            <div class="product-card" data-category="fingerprint">
-                <span class="product-badge">ضمان سنة</span>
-                <div class="product-img-holder" onclick="openImageModal(this.querySelector('img').src, 'جهاز بصمة حضور وانصراف ZKTeco')">
-                    <img src="phngar.jpg" alt="جهاز بصمة">
-                    <div class="zoom-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
-                </div>
-                <div class="product-info">
-                    <span class="category-name">أنظمة حضور وانصراف</span>
-                    <h3>جهاز بصمة حضور وانصراف ZKTeco</h3>
-                    <p class="description">يدعم البصمة، الكارت، وكلمة السر مع برنامج التقارير.</p>
-                    <div class="price-container">
-                        <span class="price">3,400 ج.م</span>
-                    </div>
-                    <div class="product-actions">
-                        <button class="btn-primary add-to-cart-btn" onclick="addToCart('جهاز بصمة ZKTeco', 3400)">
-                            <i class="fa-solid fa-cart-plus"></i> أضف للسلة
-                        </button>
-                        <a href="https://wa.me/201157143707?text=استفسار%20عن%20جهاز%20بصمة%20ZKTeco" target="_blank" class="quick-buy-btn" title="شراء سريع عبر الواتساب">
-                            <i class="fa-brands fa-whatsapp"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- منتج 3 -->
-            <div class="product-card" data-category="printer">
-                <div class="product-img-holder" onclick="openImageModal(this.querySelector('img').src, 'طابعة HP Laserjet Pro')">
-                    <img src="prant.png" alt="طابعة ليزر">
-                    <div class="zoom-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
-                </div>
-                <div class="product-info">
-                    <span class="category-name">طابعات ومستلزمات</span>
-                    <h3>طابعة HP Laserjet Pro</h3>
-                    <p class="description">طابعة ليزر أسود، أداء عالي وسرعة في الطباعة للشركات.</p>
-                    <div class="price-container">
-                        <span class="price">6,800 ج.م</span>
-                    </div>
-                    <div class="product-actions">
-                        <button class="btn-primary add-to-cart-btn" onclick="addToCart('طابعة HP Laserjet Pro', 6800)">
-                            <i class="fa-solid fa-cart-plus"></i> أضف للسلة
-                        </button>
-                        <a href="https://wa.me/201157143707?text=استفسار%20عن%20طابعة%20HP%20Laserjet%20Pro" target="_blank" class="quick-buy-btn" title="شراء سريع عبر الواتساب">
-                            <i class="fa-brands fa-whatsapp"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- منتج 4 -->
-            <div class="product-card" data-category="network">
-                <span class="product-badge sale">خصم خاص</span>
-                <div class="product-img-holder" onclick="openImageModal(this.querySelector('img').src, 'سويتش شبكات TP-Link 16 Port')">
-                    <img src="swatch.png" alt="سويتش شبكات">
-                    <div class="zoom-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
-                </div>
-                <div class="product-info">
-                    <span class="category-name">معدات شبكات</span>
-                    <h3>سويتش شبكات TP-Link 16 Port</h3>
-                    <p class="description">سويتش سرعات عالية مناسب لتأسيس الشبكات.</p>
-                    <div class="price-container">
-                        <span class="price">2,100 ج.م</span>
-                        <span class="old-price">2,350 ج.م</span>
-                    </div>
-                    <div class="product-actions">
-                        <button class="btn-primary add-to-cart-btn" onclick="addToCart('سويتش TP-Link 16 Port', 2100)">
-                            <i class="fa-solid fa-cart-plus"></i> أضف للسلة
-                        </button>
-                        <a href="https://wa.me/201157143707?text=استفسار%20عن%20سويتش%20TP-Link%2016%20Port" target="_blank" class="quick-buy-btn" title="شراء سريع عبر الواتساب">
-                            <i class="fa-brands fa-whatsapp"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
+            
         </div>
     </div>
 </section>
@@ -392,6 +358,7 @@
             </form>
         </div>
     </section>
+    
     <!-- قسم إحصائيات وإنجازات المركز -->
 <section class="stats-section">
     <div class="container stats-container">
@@ -422,7 +389,7 @@
 </section>
 
     <!-- JS Script -->
-    <script src="main.js"></script>
+<script src="main.js" defer></script>
 </body>
 <!-- أسفل الموقع (Footer) -->
 <footer id="contact" class="main-footer">
@@ -448,7 +415,10 @@
                 <li><a href="#maintenance">حجز صيانة ومعاينة</a></li>
             </ul>
         </div>
-
+<!-- يُضاف في أسفل ملف index.html داخل الفوتر -->
+<a href="dashboard.html" target="_blank" style="color: #475569; font-size: 0.8rem; text-decoration: none;">
+    <i class="fa-solid fa-lock"></i> دخول المسؤولين
+</a>
         <div class="footer-col">
             <h3>تواصل معنا</h3>
             <p><i class="fa-solid fa-location-dot"></i> طنطا - محافظة الغربية</p>
