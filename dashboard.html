@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - مركز المستقبل التقني</title>
+    <!-- مكتبة الأيقونات FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: #334155;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* الشريط الجانبي */
+        .sidebar {
+            width: 260px;
+            background: #0f172a;
+            color: #ffffff;
+            padding: 25px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .sidebar-brand {
+            font-size: 1.3rem;
+            color: #38bdf8;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar-menu a {
+            color: #94a3b8;
+            text-decoration: none;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background: #1e293b;
+            color: #38bdf8;
+        }
+
+        .exit-link {
+            color: #f87171 !important;
+        }
+
+        /* المحتوى الرئيسي */
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .dashboard-section {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-header-admin {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .section-header-admin h2 {
+            font-size: 1.4rem;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* الأزرار */
+        .btn-primary {
+            background-color: #0284c7;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: #0369a1;
+        }
+
+        .btn-secondary {
+            background-color: #e2e8f0;
+            color: #475569;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* الجدول */
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: right;
+        }
+
+        .admin-table th, .admin-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: middle;
+        }
+
+        .admin-table th {
+            background-color: #f1f5f9;
+            color: #475569;
+            font-weight: 600;
+        }
+
+        .offer-thumb {
+            width: 48px;
+            height: 48px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .badge-cat {
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .status-badge.active {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .status-badge.hidden {
+            background: #f1f5f9;
+            color: #64748b;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-icon {
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 6px;
+            border-radius: 4px;
+            transition: 0.2s;
+        }
+
+        .btn-edit { color: #0284c7; }
+        .btn-edit:hover { background: #e0f2fe; }
+
+        .btn-toggle { color: #d97706; }
+        .btn-toggle:hover { background: #fef3c7; }
+
+        .btn-delete { color: #dc2626; }
+        .btn-delete:hover { background: #fee2e2; }
+
+        /* النافذة المنبثقة (Modal) */
+        .admin-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .close-btn {
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #64748b;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: #0284c7;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; }
+            .main-content { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الشريط الجانبي -->
+    <aside class="sidebar">
+        <div>
+            <div class="sidebar-brand">
+                <i class="fa-solid fa-microchip"></i>
+                <span>المستقبل التقني</span>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="#" class="active"><i class="fa-solid fa-boxes-stacked"></i> إدارة المنتجات والعروض</a></li>
+            </ul>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="index.html" class="exit-link"><i class="fa-solid fa-arrow-right-from-bracket"></i> العودة للموقع</a></li>
+        </ul>
+    </aside>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="main-content">
+        <section class="dashboard-section">
+            <div class="section-header-admin">
+                <div>
+                    <h2><i class="fa-solid fa-tags"></i> إدارة المتجر والمنتجات</h2>
+                    <p style="color: #64748b; font-size: 0.9rem; margin-top: 4px;">إضافة، تعديل، وإخفاء المنتجات مع إمكانية توجيه كل منتج لقسمه</p>
+                </div>
+                <button class="btn-primary" onclick="openOfferModal()">
+                    <i class="fa-solid fa-plus"></i> إضافة منتج جديد
+                </button>
+            </div>
+
+            <!-- جدول عرض المنتجات -->
+            <div class="table-responsive">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>الصورة</th>
+                            <th>عنوان المنتج</th>
+                            <th>القسم</th>
+                            <th>السعر</th>
+                            <th>الحالة</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="offersTableBody">
+                        <!-- يتم تحميل المنتجات من الجافاسكربت -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- النافذة المنبثقة لإضافة/تعديل المنتجات -->
+    <div id="offerModal" class="admin-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">إضافة منتج جديد</h3>
+                <span class="close-btn" onclick="closeOfferModal()">&times;</span>
+            </div>
+            <form id="offerForm" onsubmit="handleOfferSubmit(event)">
+                <!-- حقل مخفي لحفظ معرف المنتج عند التعديل -->
+                <input type="hidden" id="offerId">
+                
+                <div class="form-group">
+                    <label for="offerTitle">اسم المنتج / العرض:</label>
+                    <input type="text" id="offerTitle" class="form-control" placeholder="مثال: كاميرا Hikvision 5MP" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="offerCategory">قسم المنتج:</label>
+                    <select id="offerCategory" class="form-control" required>
+                        <option value="camera">كاميرات مراقبة</option>
+                        <option value="fingerprint">أجهزة بصمة</option>
+                        <option value="printer">طابعات</option>
+                        <option value="network">شبكات</option>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="offerPrice">السعر الحالي (ج.م):</label>
+                        <input type="number" id="offerPrice" class="form-control" placeholder="1250" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="offerOldPrice">السعر قبل الخصم (اختياري):</label>
+                        <input type="number" id="offerOldPrice" class="form-control" placeholder="1500">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="offerImage">مسار / رابط الصورة:</label>
+                    <input type="text" id="offerImage" class="form-control" placeholder="images/Hikvision.jpg" required>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="submit" class="btn-primary" id="saveBtn">حفظ المنتج</button>
+                    <button type="button" class="btn-secondary" onclick="closeOfferModal()">إلغاء</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ربط ملف الـ JS -->
+    <script src="dashboard.js"></script>
+</body>
+</html>
