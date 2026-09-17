@@ -68,9 +68,6 @@ const productsData = [
 
     // --- قسم الشبكات والسيرفرات (network) ---
     {
-
-    // --- قسم الشبكات والسيرفرات (network) ---
-    {
         id: 8,
         title: "سويتش شبكة TP-Link 16 Port Gigabit",
         category: "network",
