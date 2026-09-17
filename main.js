@@ -1,465 +1,391 @@
-document.getElementById('whatsappForm').addEventListener('submit', function(e) {
-    e.preventDefault();
+// ==========================================
+// 1. مصفوفة بيانات المنتجات (مقسمة حسب الأقسام)
+// ==========================================
+const productsData = [
+    // --- قسم كاميرات المراقبة (camera) ---
+    {
+        id: 1,
+        title: "طقم كاميرات Hikvision HD 5MP (4 كاميرات)",
+        category: "camera",
+        price: 4800,
+        image: "2.jpg",
+        description: "شامل جهاز DVR 4 قنوات، هارد 1 تيرا، وباور سبلاي متكامل."
+    },
+    {
+        id: 2,
+        title: "كاميرا مراقبة IP لاسلكية متحركة 360°",
+        category: "camera",
+        price: 1350,
+        image: "1.jpg",
+        description: "دقة 3 ميجابكسل، تتبع حركة ذكي، ورؤية ليلية بالألوان."
+    },
 
-    // استخراج البيانات من النموذج
-    const name = document.getElementById('name').value;
-    const phone = document.getElementById('phone').value;
-    const service = document.getElementById('service_type').value;
-    const address = document.getElementById('address').value;
+    // --- قسم البرمجيات والتطبيقات (software) ---
+    {
+        id: 3,
+        title: "برنامج المستقبل لإدارة المبيعات والمخازن (POS)",
+        category: "software",
+        price: 2500,
+        image: "es.jpeg",
+        description: "ترخيص مدى الحياة، يدعم الفواتير الإلكترونية، والطباعة الحرارية."
+    },
+    {
+        id: 4,
+        title: "تصميم موقع إلكتروني تعريفي للمؤسسات",
+        category: "software",
+        price: 3500,
+        image: "cameras-bg.jpg",
+        description: "متوافق مع الهواتف، شامل الاستضافة والدومين لمدة عام، وربط الواتساب."
+    },
 
-    // أدخل رقم الواتساب الخاص بك هنا (مبتدئاً بكود الدولة +20)
-    const whatsappNumber = "201157143707"; 
+    // --- قسم أجهزة البصمة (fingerprint) ---
+    {
+        id: 5,
+        title: "جهاز حضور وانصراف ZKTeco MB20",
+        category: "fingerprint",
+        price: 3100,
+        image: "phngar.jpg",
+        description: "يدعم بصمة الوجه، الأصبع، والكارت، مع برنامج التقارير بالعربي."
+    },
 
-    // تجهيز نص الرسالة
-    const message = `طلب جديد من الموقع %0A%0A` +
-                    `*الاسم:* ${encodeURIComponent(name)}%0A` +
-                    `*رقم الهاتف:* ${encodeURIComponent(phone)}%0A` +
-                    `*الخدمة المطلوبة:* ${encodeURIComponent(service)}%0A` +
-                    `*العنوان:* ${encodeURIComponent(address)}`;
+    // --- قسم الطابعات ومستلزماتها (printer) ---
+    {
+        id: 6,
+        title: "طابعة فواتير حرارية USB / Ethernet",
+        category: "printer",
+        price: 2200,
+        image: "3.jpg",
+        description: "سرعة طباعة عالية 80mm، قص آلي للفواتير، متوافقة مع كافة برامج POS."
+    },
 
-    // فتح رابط الواتساب
-    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${message}`;
-    window.open(whatsappURL, '_blank');
+    // --- قسم الشبكات والسيرفرات (network) ---
+    {
+        id: 7,
+        title: "سويتش شبكة TP-Link 16 Port Gigabit",
+        category: "network",
+        price: 1850,
+        image: "swatch.png",
+        description: "هيكل معدني قوي، نقل بيانات سريع ومناسب للشركات وأنظمة الكاميرات."
+    },
+    {
+        id: 8,
+        title: "راوتر وسيرفر توزيع شبكات Mikrotik hEX",
+        category: "network",
+        price: 2900,
+        image: "5.jpg",
+        description: "إدارة وتوزيع السرعات واليوزرات للمؤسسات والشبكات السلكية."
+    }
+];
+
+// ==========================================
+// 2. إدارة السلة وتخزين البيانات المحلية
+// ==========================================
+let cart = JSON.parse(localStorage.getItem('tech_store_cart')) || [];
+
+// عرض المنتجات في الصفحة عند التحميل
+document.addEventListener("DOMContentLoaded", () => {
+    displayProducts('all');
+    updateCartUI();
+    initSliders();
+    initCounters();
 });
 
-let cart = [];
+// دالة عرض المنتجات بناءً على الفلتر
+function displayProducts(categoryFilter) {
+    const grid = document.getElementById('productsGrid');
+    if (!grid) return;
 
-// إضافة منتج للسلة
-function addToCart(title, price) {
-    const existingProduct = cart.find(item => item.title === title);
-    if (existingProduct) {
-        existingProduct.quantity += 1;
-    } else {
-        cart.push({ title: title, price: price, quantity: 1 });
+    grid.innerHTML = '';
+
+    const filteredProducts = categoryFilter === 'all' 
+        ? productsData 
+        : productsData.filter(p => p.category === categoryFilter);
+
+    if (filteredProducts.length === 0) {
+        grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #64748b; padding: 20px;">لا توجد منتجات متاحة في هذا القسم حالياً.</p>`;
+        return;
     }
-    updateCartUI();
-    alert(`تمت إضافة "${title}" إلى السلة بنجاح`);
+
+    filteredProducts.forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+            <div class="product-img-box" onclick="openImageModal('${product.image}', '${product.title}')">
+                <img src="${product.image}" alt="${product.title}" loading="lazy">
+            </div>
+            <div class="product-info">
+                <h3>${product.title}</h3>
+                <p class="product-desc">${product.description}</p>
+                <div class="product-bottom">
+                    <span class="product-price">${product.price} ج.م</span>
+                    <button class="btn-primary" onclick="addToCart(${product.id})">
+                        <i class="fa-solid fa-cart-plus"></i> أضف للسلة
+                    </button>
+                </div>
+            </div>
+        `;
+        grid.appendChild(card);
+    });
 }
 
-// تحديث واجهة السلة والعداد
+// دالة تصفية المنتجات عند الضغط على الأزرار
+function filterProducts(category) {
+    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    displayProducts(category);
+}
+
+// ==========================================
+// 3. وظائف سلة الشراء وإتمام الطلب
+// ==========================================
+function addToCart(productId) {
+    const product = productsData.find(p => p.id === productId);
+    const existing = cart.find(item => item.id === productId);
+
+    if (existing) {
+        existing.quantity += 1;
+    } else {
+        cart.push({ ...product, quantity: 1 });
+    }
+
+    saveCart();
+    updateCartUI();
+    alert(`تم إضافة "${product.title}" إلى السلة بنجاح.`);
+}
+
 function updateCartUI() {
     const cartCount = document.getElementById('cart-count');
     const cartItemsList = document.getElementById('cartItemsList');
     const cartTotal = document.getElementById('cartTotal');
 
-    // تحديث العداد
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    if(cartCount) cartCount.innerText = totalItems;
+    const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
-    // تحديث المحتوى الداخلي للسلة
+    if (cartCount) cartCount.innerText = totalCount;
+    if (cartTotal) cartTotal.innerText = totalPrice;
+
+    if (!cartItemsList) return;
+
     if (cart.length === 0) {
-        cartItemsList.innerHTML = '<p>السلة فارغة حالياً</p>';
-        cartTotal.innerText = '0';
+        cartItemsList.innerHTML = '<p style="text-align:center; color:#64748b;">السلة فارغة حالياً</p>';
         return;
     }
 
-    let itemsHTML = '';
+    cartItemsList.innerHTML = cart.map(item => `
+        <div class="cart-item" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; border-bottom:1px solid #e2e8f0; padding-bottom:8px;">
+            <div>
+                <strong style="display:block; font-size:0.95rem;">${item.title}</strong>
+                <small style="color:#64748b;">${item.price} ج.م × ${item.quantity}</small>
+            </div>
+            <div style="display:flex; align-items:center; gap:8px;">
+                <button onclick="changeQuantity(${item.id}, -1)" style="padding:2px 8px; border:1px solid #cbd5e1; background:#fff; cursor:pointer;">-</button>
+                <span>${item.quantity}</span>
+                <button onclick="changeQuantity(${item.id}, 1)" style="padding:2px 8px; border:1px solid #cbd5e1; background:#fff; cursor:pointer;">+</button>
+                <button onclick="removeFromCart(${item.id})" style="color:#ef4444; border:none; background:none; cursor:pointer; margin-right:5px;"><i class="fa-solid fa-trash"></i></button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function changeQuantity(id, delta) {
+    const item = cart.find(i => i.id === id);
+    if (item) {
+        item.quantity += delta;
+        if (item.quantity <= 0) {
+            cart = cart.filter(i => i.id !== id);
+        }
+        saveCart();
+        updateCartUI();
+    }
+}
+
+function removeFromCart(id) {
+    cart = cart.filter(i => i.id !== id);
+    saveCart();
+    updateCartUI();
+}
+
+function saveCart() {
+    localStorage.setItem('tech_store_cart', JSON.stringify(cart));
+}
+
+function toggleCart() {
+    const modal = document.getElementById('cartModal');
+    if (modal) {
+        modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
+    }
+}
+
+function checkoutWhatsApp() {
+    if (cart.length === 0) {
+        alert('السلة فارغة!');
+        return;
+    }
+
+    let message = "السلام عليكم، أريد إتمام طلب المنتجات التالية من الموقع:\n\n";
     let total = 0;
 
     cart.forEach((item, index) => {
         const itemTotal = item.price * item.quantity;
         total += itemTotal;
-        itemsHTML += `
-            <div class="cart-item">
-                <div>
-                    <strong>${item.title}</strong><br>
-                    <small>${item.price} ج.م × ${item.quantity}</small>
-                </div>
-                <div>
-                    <span>${itemTotal} ج.م</span>
-                    <button onclick="removeFromCart(${index})" style="color:red; border:none; background:none; cursor:pointer; margin-right:10px;">✕</button>
-                </div>
-            </div>
-        `;
+        message += `${index + 1}. ${item.title}\n   - الكمية: ${item.quantity}\n   - السعر: ${itemTotal} ج.م\n`;
     });
 
-    cartItemsList.innerHTML = itemsHTML;
-    cartTotal.innerText = total;
+    message += `\n*الإجمالي العام: ${total} ج.م*`;
+
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/201157143707?text=${encodedMessage}`, '_blank');
 }
 
-// حذف منتج من السلة
-function removeFromCart(index) {
-    cart.splice(index, 1);
-    updateCartUI();
-}
-
-// إظهار/إخفاء نافذة السلة عند الضغط على أيقونة السلة
-document.querySelector('.cart-btn')?.addEventListener('click', function(e) {
-    e.preventDefault();
-    toggleCart();
-});
-
-function toggleCart() {
-    const cartModal = document.getElementById('cartModal');
-    cartModal.style.display = (cartModal.style.display === 'flex') ? 'none' : 'flex';
-}
-
-// إرسال طلب الشراء عبر الواتساب
-function checkoutWhatsApp() {
-    if (cart.length === 0) {
-        alert('سلتك فارغة!');
-        return;
+// ==========================================
+// 4. النوافذ المنبثقة للصور والكورسات والتقييمات
+// ==========================================
+function openImageModal(src, title) {
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    const caption = document.getElementById('modalCaption');
+    if (modal && modalImg) {
+        modal.style.display = 'block';
+        modalImg.src = src;
+        if (caption) caption.innerText = title;
     }
-
-    const whatsappNumber = "201157143707"; // أضف رقم الهاتف الخاص بك هنا
-    let message = "طلب شراء جديد من المتجر:%0A%0A";
-
-    let total = 0;
-    cart.forEach(item => {
-        const itemTotal = item.price * item.quantity;
-        total += itemTotal;
-        message += `• ${item.title} (الكمية: ${item.quantity}) - ${itemTotal} ج.م%0A`;
-    });
-
-    message += `%0A*الإجمالي:* ${total} ج.م`;
-
-    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${message}`;
-    window.open(whatsappURL, '_blank');
-}
-// فتح نافذة حجز الكورس
-function openEnrollModal(courseName, price) {
-    document.getElementById('modalCourseTitle').innerText = `حجز: ${courseName}`;
-    document.getElementById('selectedCourseName').value = courseName;
-    document.getElementById('courseModal').style.display = 'flex';
 }
 
-// إغلاق نافذة حجز الكورس
+function closeImageModal() {
+    const modal = document.getElementById('imageModal');
+    if (modal) modal.style.display = 'none';
+}
+
+function openEnrollModal(courseTitle, price) {
+    document.getElementById('modalCourseTitle').innerText = `حجز: ${courseTitle}`;
+    document.getElementById('selectedCourseName').value = courseTitle;
+    document.getElementById('courseModal').style.display = 'block';
+}
+
 function closeEnrollModal() {
     document.getElementById('courseModal').style.display = 'none';
 }
 
-// معالجة نموذج التسجيل وإرساله عبر الواتساب
-document.getElementById('courseEnrollForm')?.addEventListener('submit', function(e) {
-    e.preventDefault();
+function openReviewModal() {
+    document.getElementById('reviewModal').style.display = 'block';
+}
 
-    const courseName = document.getElementById('selectedCourseName').value;
-    const name = document.getElementById('studentName').value;
-    const phone = document.getElementById('studentPhone').value;
-    const level = document.getElementById('studentLevel').value;
+function closeReviewModal() {
+    document.getElementById('reviewModal').style.display = 'none';
+}
 
-    const whatsappNumber = "201157143707"; // رقم الواتساب الخاص بالمركز
+function submitReview(event) {
+    event.preventDefault();
+    const name = document.getElementById('reviewName').value;
+    const role = document.getElementById('reviewRole').value || 'عميل المركز';
+    const rating = document.getElementById('reviewRating').value;
+    const comment = document.getElementById('reviewComment').value;
 
-    const message = `طلب حجز كورس تدريبي جديد:%0A%0A` +
-                    `*الدورة:* ${encodeURIComponent(courseName)}%0A` +
-                    `*اسم المتدرب:* ${encodeURIComponent(name)}%0A` +
-                    `*رقم الهاتف:* ${encodeURIComponent(phone)}%0A` +
-                    `*المستوى:* ${encodeURIComponent(level)}`;
+    const grid = document.getElementById('testimonialsGrid');
+    const card = document.createElement('div');
+    card.className = 'testimonial-card';
+    
+    let starsHtml = '';
+    for (let i = 0; i < rating; i++) starsHtml += '<i class="fa-solid fa-star"></i>';
 
-    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${message}`;
-    window.open(whatsappURL, '_blank');
-    closeEnrollModal();
-});
+    card.innerHTML = `
+        <div class="stars">${starsHtml}</div>
+        <p class="review-text">"${comment}"</p>
+        <div class="client-info">
+            <strong>${name}</strong>
+            <span>${role}</span>
+        </div>
+    `;
+
+    grid.prepend(card);
+    closeReviewModal();
+    document.getElementById('reviewForm').reset();
+    alert('شكراً لك! تم نشر تعليقك بنجاح.');
+}
+
+// ==========================================
+// 5. التحكم بالنظام والسلايدر والقوائم
+// ==========================================
 let currentSlideIndex = 0;
-const slides = document.querySelectorAll('.slide');
-const dots = document.querySelectorAll('.dot');
-
-function showSlide(index) {
-    if (index >= slides.length) currentSlideIndex = 0;
-    if (index < 0) currentSlideIndex = slides.length - 1;
-
-    slides.forEach(slide => slide.classList.remove('active'));
-    dots.forEach(dot => dot.classList.remove('active'));
-
-    slides[currentSlideIndex].classList.add('active');
-    dots[currentSlideIndex].classList.add('active');
+function initSliders() {
+    const slides = document.querySelectorAll('.hero-slider .slide');
+    if (slides.length === 0) return;
+    setInterval(() => {
+        changeSlide(1);
+    }, 5000);
 }
 
 function changeSlide(direction) {
-    currentSlideIndex += direction;
-    showSlide(currentSlideIndex);
+    const slides = document.querySelectorAll('.hero-slider .slide');
+    const dots = document.querySelectorAll('.slider-dots .dot');
+    if (slides.length === 0) return;
+
+    slides[currentSlideIndex].classList.remove('active');
+    if (dots[currentSlideIndex]) dots[currentSlideIndex].classList.remove('active');
+
+    currentSlideIndex = (currentSlideIndex + direction + slides.length) % slides.length;
+
+    slides[currentSlideIndex].classList.add('active');
+    if (dots[currentSlideIndex]) dots[currentSlideIndex].classList.add('active');
 }
 
-function currentSlide(index) {
-    currentSlideIndex = index;
-    showSlide(currentSlideIndex);
-}
-
-// التغيير التلقائي للصور كل 4 ثوانٍ
-setInterval(() => {
-    currentSlideIndex++;
-    showSlide(currentSlideIndex);
-}, 4000);
-function updateVisitorCount() {
-    // جلب عدد الزيارات الحالي أو البدء برقم شرفي مثل 1000
-    let count = localStorage.getItem('site_visitors');
-    
-    if (!count) {
-        count = 1024; // بداية العداد للزوار الجدد
-    } else {
-        count = parseInt(count) + 1;
-    }
-    
-    // حفظ الرقم الجديد وتحديث الشاشة
-    localStorage.setItem('site_visitors', count);
-    document.getElementById('visitorCount').innerText = count.toLocaleString('ar-EG');
-}
-
-// تشغيل العداد عند تحميل الصفحة
-document.addEventListener('DOMContentLoaded', updateVisitorCount);
-// انيميشن تصاعد الأرقام حركياً
-const counters = document.querySelectorAll('.counter');
-const speed = 200; 
-
-counters.forEach(counter => {
-    const updateCount = () => {
-        const target = +counter.getAttribute('data-target');
-        const count = +counter.innerText;
-        const inc = target / speed;
-
-        if (count < target) {
-            counter.innerText = Math.ceil(count + inc);
-            setTimeout(updateCount, 20);
-        } else {
-            counter.innerText = target.toLocaleString('ar-EG');
-        }
-    };
-    updateCount();
-});
-function filterProducts(category) {
-    // تحديث الشكل النشط للأزرار
-    const buttons = document.querySelectorAll('.filter-btn');
-    buttons.forEach(btn => btn.classList.remove('active'));
-    event.target.classList.add('active');
-
-    // إخفاء وإظهار المنتجات حسب التصنيف
-    const products = document.querySelectorAll('.product-card');
-    products.forEach(product => {
-        if (category === 'all' || product.getAttribute('data-category') === category) {
-            product.style.display = 'flex';
-        } else {
-            product.style.display = 'none';
-        }
-    });
-}
-// فتح نافذة المعاينة الكبيرة للصورة
-function openImageModal(imgSrc, captionText) {
-    const modal = document.getElementById('imageModal');
-    const modalImg = document.getElementById('modalImage');
-    const caption = document.getElementById('modalCaption');
-
-    modal.style.display = 'flex';
-    modalImg.src = imgSrc;
-    caption.innerText = captionText;
-}
-
-// إغلاق نافذة المعاينة
-function closeImageModal() {
-    document.getElementById('imageModal').style.display = 'none';
-}
-
-// إغلاق النافذة بضغط زر Esc على لوحة المفاتيح
-document.addEventListener('keydown', function(event) {
-    if (event.key === "Escape") {
-        closeImageModal();
-    }
-});
-// فتح وإغلاق القائمة في الهواتف
 function toggleMenu() {
-    const navLinks = document.getElementById('navLinks');
-    const menuBtnIcon = document.querySelector('#menuBtn i');
-    
-    navLinks.classList.toggle('active');
-    
-    // تغيير أيقونة القائمة بين (Bars) و (Close X)
-    if (navLinks.classList.contains('active')) {
-        menuBtnIcon.className = 'fa-solid fa-xmark';
-    } else {
-        menuBtnIcon.className = 'fa-solid fa-bars';
-    }
+    const nav = document.getElementById('navLinks');
+    if (nav) nav.classList.toggle('active');
 }
 
-// إغلاق القائمة تلقائياً عند الضغط على أي رابط
 function closeMenu() {
-    const navLinks = document.getElementById('navLinks');
-    const menuBtnIcon = document.querySelector('#menuBtn i');
-    
-    if (navLinks.classList.contains('active')) {
-        navLinks.classList.remove('active');
-        menuBtnIcon.className = 'fa-solid fa-bars';
-    }
+    const nav = document.getElementById('navLinks');
+    if (nav) nav.classList.remove('active');
 }
-// قراءة وتوزيع المنتجات حسب الأقسام
-function loadOffersToStore() {
-    const productsGrid = document.querySelector('.products-grid');
-    const storedOffers = JSON.parse(localStorage.getItem('myOffers'));
 
-    if (!storedOffers || storedOffers.length === 0) return;
-
-    productsGrid.innerHTML = '';
-
-    storedOffers.forEach(offer => {
-        if (offer.hidden) return; // إخفاء المنتجات المعطلة
-
-        const productHTML = `
-            <div class="product-card" data-category="${offer.category}">
-                <span class="product-badge sale">جديد</span>
-                <div class="product-img-holder" onclick="openImageModal(this.querySelector('img').src, '${offer.title}')">
-                    <img src="${offer.image}" alt="${offer.title}">
-                    <div class="zoom-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
-                </div>
-                <div class="product-info">
-                    <span class="category-name">${getCategoryName(offer.category)}</span>
-                    <h3>${offer.title}</h3>
-                    <div class="price-container">
-                        <span class="price">${offer.price} ج.م</span>
-                        ${offer.oldPrice ? `<span class="old-price">${offer.oldPrice} ج.م</span>` : ''}
-                    </div>
-                    <div class="product-actions">
-                        <button class="btn-primary add-to-cart-btn" onclick="addToCart('${offer.title}', ${offer.price})">
-                            <i class="fa-solid fa-cart-plus"></i> أضف للسلة
-                        </button>
-                        <a href="https://wa.me/201157143707?text=استفسار%20عن%20${encodeURIComponent(offer.title)}" target="_blank" class="quick-buy-btn">
-                            <i class="fa-brands fa-whatsapp"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        `;
-        productsGrid.innerHTML += productHTML;
+// العدادات التفاعلية
+function initCounters() {
+    const counters = document.querySelectorAll('.counter');
+    counters.forEach(counter => {
+        const target = +counter.getAttribute('data-target');
+        let count = 0;
+        const speed = target / 100;
+        const update = () => {
+            count += speed;
+            if (count < target) {
+                counter.innerText = Math.ceil(count);
+                setTimeout(update, 20);
+            } else {
+                counter.innerText = target;
+            }
+        };
+        update();
     });
 }
 
-// دالة لتصفية المنتجات حسب الزر المكبوس
-function filterProducts(category) {
-    const cards = document.querySelectorAll('.product-card');
-    const filterBtns = document.querySelectorAll('.filter-btn');
+// معالجة نموذج صيانة/معاينة عبر الواتساب
+const whatsappForm = document.getElementById('whatsappForm');
+if (whatsappForm) {
+    whatsappForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name = document.getElementById('name').value;
+        const phone = document.getElementById('phone').value;
+        const service = document.getElementById('service_type').value;
+        const address = document.getElementById('address').value;
 
-    // تفعيل الزر النشط
-    filterBtns.forEach(btn => btn.classList.remove('active'));
-    event.target.classList.add('active');
-
-    // إظهار وإخفاء الكروت بناءً على القسم
-    cards.forEach(card => {
-        if (category === 'all' || card.getAttribute('data-category') === category) {
-            card.style.display = 'block';
-        } else {
-            card.style.display = 'none';
-        }
+        const text = `طلب جديد عبر الموقع:\n- الاسم: ${name}\n- الهاتف: ${phone}\n- الخدمة: ${service}\n- العنوان: ${address}`;
+        window.open(`https://wa.me/201157143707?text=${encodeURIComponent(text)}`, '_blank');
     });
 }
 
-document.addEventListener('DOMContentLoaded', loadOffersToStore);
+// معالجة نموذج حجز الكورس عبر الواتساب
+const courseEnrollForm = document.getElementById('courseEnrollForm');
+if (courseEnrollForm) {
+    courseEnrollForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const course = document.getElementById('selectedCourseName').value;
+        const name = document.getElementById('studentName').value;
+        const phone = document.getElementById('studentPhone').value;
+        const level = document.getElementById('studentLevel').value;
 
-// القائمة الافتراضية للمنتجات (في حال لم يتم إضافة منتجات من لوحة التحكم بعد)
-const defaultProducts = [
-    {
-        id: 1,
-        title: "كاميرا مراقبة Hikvision 5MP IP",
-        category: "camera",
-        price: 1250,
-        oldPrice: 1500,
-        image: "Hikvision.jpg",
-        hidden: false
-    },
-    {
-        id: 2,
-        title: "جهاز بصمة حضور وانصراف ZKTeco",
-        category: "fingerprint",
-        price: 3400,
-        oldPrice: null,
-        image: "phngar.jpg",
-        hidden: false
-    },
-    {
-        id: 3,
-        title: "طابعة HP Laserjet Pro",
-        category: "printer",
-        price: 6800,
-        oldPrice: null,
-        image: "prant.png",
-        hidden: false
-    },
-    {
-        id: 4,
-        title: "سويتش شبكات TP-Link 16 Port",
-        category: "network",
-        price: 2100,
-        oldPrice: 2350,
-        image: "swatch.png",
-        hidden: false
-    }
-];
-
-// دالة تحويل رمز القسم إلى اسم عربي
-function getCategoryName(cat) {
-    const categories = {
-        'camera': 'كاميرات مراقبة',
-        'fingerprint': 'أجهزة بصمة',
-        'printer': 'طابعات ومستلزمات',
-        'network': 'معدات شبكات'
-    };
-    return categories[cat] || 'منتجات عامة';
-}
-
-// دالة جلب وعرض المنتجات من الـ LocalStorage
-function loadOffersToStore() {
-    const productsGrid = document.querySelector('.products-grid');
-    if (!productsGrid) return; // حماية في حال عدم وجود العنصر
-
-    // قراءة البيانات من لوحة التحكم أو استخدام القائمة الافتراضية
-    let storedOffers = JSON.parse(localStorage.getItem('myOffers'));
-    
-    if (!storedOffers || storedOffers.length === 0) {
-        storedOffers = defaultProducts;
-        localStorage.setItem('myOffers', JSON.stringify(defaultProducts));
-    }
-
-    // تفريغ المحتوى وإعادة البناء
-    productsGrid.innerHTML = '';
-
-    storedOffers.forEach(offer => {
-        // تجاهل المنتجات المخفية من لوحة التحكم
-        if (offer.hidden) return;
-
-        const productHTML = `
-            <div class="product-card" data-category="${offer.category}">
-                ${offer.oldPrice ? '<span class="product-badge sale">خصم خاص</span>' : '<span class="product-badge">جديد</span>'}
-                <div class="product-img-holder" onclick="openImageModal(this.querySelector('img').src, '${offer.title}')">
-                    <img src="${offer.image}" alt="${offer.title}" onerror="this.src='logo.png'">
-                    <div class="zoom-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
-                </div>
-                <div class="product-info">
-                    <span class="category-name">${getCategoryName(offer.category)}</span>
-                    <h3>${offer.title}</h3>
-                    <div class="price-container">
-                        <span class="price">${offer.price} ج.م</span>
-                        ${offer.oldPrice ? `<span class="old-price">${offer.oldPrice} ج.م</span>` : ''}
-                    </div>
-                    <div class="product-actions">
-                        <button class="btn-primary add-to-cart-btn" onclick="addToCart('${offer.title}', ${offer.price})">
-                            <i class="fa-solid fa-cart-plus"></i> أضف للسلة
-                        </button>
-                        <a href="https://wa.me/201157143707?text=استفسار%20عن%20${encodeURIComponent(offer.title)}" target="_blank" class="quick-buy-btn" title="شراء عبر الواتساب">
-                            <i class="fa-brands fa-whatsapp"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        `;
-        productsGrid.innerHTML += productHTML;
+        const text = `حجز دورة تدريبية:\n- الكورس: ${course}\n- الاسم: ${name}\n- الهاتف: ${phone}\n- المستوى: ${level}`;
+        window.open(`https://wa.me/201157143707?text=${encodeURIComponent(text)}`, '_blank');
+        closeEnrollModal();
     });
 }
-
-// دالة تصفية المنتجات حسب التصنيف (الفلاتر)
-function filterProducts(category) {
-    const cards = document.querySelectorAll('.product-card');
-    const filterBtns = document.querySelectorAll('.filter-btn');
-
-    // تغيير الزر النشط
-    filterBtns.forEach(btn => btn.classList.remove('active'));
-    if (event && event.target) {
-        event.target.classList.add('active');
-    }
-
-    // إظهار وإخفاء الكروت
-    cards.forEach(card => {
-        if (category === 'all' || card.getAttribute('data-category') === category) {
-            card.style.display = 'block';
-        } else {
-            card.style.display = 'none';
-        }
-    });
-}
-
-// تشغيل جلب البيانات فور تحميل الصفحة بالكامل
-document.addEventListener('DOMContentLoaded', loadOffersToStore);
