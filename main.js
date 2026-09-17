@@ -57,6 +57,15 @@ const productsData = [
         image: "3.jpg",
         description: "سرعة طباعة عالية 80mm، قص آلي للفواتير، متوافقة مع كافة برامج POS."
     },
+         title: "طابعة 3350   ",
+        category: "printer",
+        price: 8200,
+        image: "prant.png",
+        description: "سرعة طباعة عالية ."
+    },
+
+    // --- قسم الشبكات والسيرفرات (network) ---
+    {
 
     // --- قسم الشبكات والسيرفرات (network) ---
     {
