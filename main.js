@@ -74,7 +74,16 @@ const productsData = [
         price: 2900,
         image: "5.jpg",
         description: "إدارة وتوزيع السرعات واليوزرات للمؤسسات والشبكات السلكية."
+    },
+     {
+        id: 9,
+        title: " printer3350",
+        category: "printer",
+        price: 8900,
+        image: "prant.png",
+        description: "."
     }
+    
 ];
 
 // ==========================================
