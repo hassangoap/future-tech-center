@@ -57,6 +57,7 @@ const productsData = [
         image: "3.jpg",
         description: "سرعة طباعة عالية 80mm، قص آلي للفواتير، متوافقة مع كافة برامج POS."
     },
+
     // --- قسم الشبكات والسيرفرات (network) ---
     {
         id: 7,
