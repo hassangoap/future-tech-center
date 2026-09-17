@@ -57,7 +57,9 @@ const productsData = [
         image: "3.jpg",
         description: "سرعة طباعة عالية 80mm، قص آلي للفواتير، متوافقة مع كافة برامج POS."
     },
-         title: "طابعة 3350   ",
+    {
+        id: 7,
+        title: "طابعة 3350   ",
         category: "printer",
         price: 8200,
         image: "prant.png",
@@ -69,7 +71,7 @@ const productsData = [
 
     // --- قسم الشبكات والسيرفرات (network) ---
     {
-        id: 7,
+        id: 8,
         title: "سويتش شبكة TP-Link 16 Port Gigabit",
         category: "network",
         price: 1850,
@@ -77,7 +79,7 @@ const productsData = [
         description: "هيكل معدني قوي، نقل بيانات سريع ومناسب للشركات وأنظمة الكاميرات."
     },
     {
-        id: 8,
+        id: 9,
         title: "راوتر وسيرفر توزيع شبكات Mikrotik hEX",
         category: "network",
         price: 2900,
