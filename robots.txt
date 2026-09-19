@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /dashboard.html
 
-Sitemap: https://yourdomain.com/sitemap.xml
+Sitemap: https://hassangoap.github.io/future-tech-center/sitemap.xml
