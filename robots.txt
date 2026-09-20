@@ -3,3 +3,4 @@ Allow: /
 Disallow: /dashboard.html
 
 Sitemap: https://hassangoap.github.io/future-tech-center/sitemap.xml
+google-site-verification=JIw573PcOuDHLBwuShv0XkrSbIBfxmArcP0YxbbZGK8
