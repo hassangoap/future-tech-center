@@ -398,3 +398,10 @@ if (courseEnrollForm) {
         closeEnrollModal();
     });
 }
+function toggleChat() {
+    const chatBox = document.getElementById('chatBox');
+    if (chatBox) {
+        chatBox.classList.toggle('active');
+    }
+}
+
