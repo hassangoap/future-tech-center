@@ -1156,4 +1156,123 @@ body {
         font-size: 28px;
     }
 }
+/* تنسيقات الشات بوت العائم */
+.chat-widget {
+    position: fixed;
+    bottom: 25px;
+    left: 25px; /* يوضع جهة اليسار لعدم التعارض مع زر الواتساب */
+    z-index: 1000;
+    font-family: inherit;
+}
+
+.chat-trigger {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background-color: #0284c7;
+    color: white;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+}
+
+.chat-trigger:hover {
+    transform: scale(1.08);
+}
+
+.chat-box {
+    display: none;
+    position: absolute;
+    bottom: 70px;
+    left: 0;
+    width: 320px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    overflow: hidden;
+    flex-direction: column;
+}
+
+.chat-box.active {
+    display: flex;
+}
+
+.chat-header {
+    background: #0f172a;
+    color: white;
+    padding: 12px 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+}
+
+.chat-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+.chat-header h4 {
+    margin: 0;
+    font-size: 14px;
+}
+
+.chat-header p {
+    margin: 0;
+    font-size: 11px;
+    color: #94a3b8;
+}
+
+.chat-close {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.chat-body {
+    padding: 15px;
+    background: #f8fafc;
+}
+
+.chat-message.bot {
+    background: #e2e8f0;
+    color: #1e293b;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 12px;
+}
+
+.chat-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.chat-opt-btn {
+    display: block;
+    padding: 8px 12px;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    color: #0f172a;
+    text-decoration: none;
+    font-size: 12px;
+    transition: all 0.2s;
+}
+
+.chat-opt-btn:hover {
+    background: #0284c7;
+    color: white;
+    border-color: #0284c7;
+}
 
