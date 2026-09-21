@@ -1275,4 +1275,42 @@ body {
     color: white;
     border-color: #0284c7;
 }
+/* زر ماسنجر العائم */
+.messenger-float {
+    position: fixed;
+    bottom: 90px; /* يتوضع بمسافة مناسبة فوق زر الواتساب أو الشات العائم */
+    left: 25px;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #00B2FF 0%, #006AFF 100%);
+    color: #ffffff;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 26px;
+    box-shadow: 0 4px 12px rgba(0, 106, 255, 0.3);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.messenger-float:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 106, 255, 0.5);
+    color: #ffffff;
+}
+
+/* التكيف مع شاشات الهواتف */
+@media (max-width: 768px) {
+    .messenger-float {
+        width: 45px;
+        height: 45px;
+        font-size: 22px;
+        bottom: 85px;
+        left: 15px;
+    }
+}
+
 
