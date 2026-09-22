@@ -405,17 +405,20 @@ function toggleChat() {
     }
 }
 
-// دالة مشاركة المقالات
-function shareArticle(title, url) {
+function shareArticle(title, articlePath, imagePath) {
+    // تحويل الرابط النسبي إلى رابط كامل مع الدومين
+    const fullArticleUrl = new URL(articlePath, window.location.origin).href;
+    const fullImageUrl = new URL(imagePath, window.location.origin).href;
+
     if (navigator.share) {
         navigator.share({
             title: title,
-            text: title + ' - مركز المستقبل التقني',
-            url: url
-        }).catch((error) => console.log('خطأ في المشاركة:', error));
+            text: title,
+            url: fullArticleUrl
+        }).catch((err) => console.log('تم إلغاء المشاركة'));
     } else {
-        // في حال عدم دعم المتصفح لميزة navigator.share يتم نسخ الرابط
-        navigator.clipboard.writeText(url).then(() => {
+        // إذا كان المتصفح لا يدعم ميزة المشاركة التلقائية يتم نسخ رابط المقال
+        navigator.clipboard.writeText(fullArticleUrl).then(() => {
             alert('تم نسخ رابط المقال بنجاح!');
         }).catch(() => {
             alert('حدث خطأ أثناء نسخ الرابط.');
