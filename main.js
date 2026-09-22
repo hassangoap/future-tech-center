@@ -405,23 +405,48 @@ function toggleChat() {
     }
 }
 
+/* ====================================================== */
+/* دالة مشاركة المقالات الذكية - مركز المستقبل التقني */
+/* ====================================================== */
+
+/**
+ * دالة تقوم بمشاركة مقال محدد عبر واجهة برمجة تطبيقات المشاركة في المتصفح (Web Share API).
+ * إذا كان المتصفح لا يدعمها، تقوم بنسخ الرابط إلى الحافظة كبديل.
+ * 
+ * @param {string} title - عنوان المقال المراد مشاركته.
+ * @param {string} articlePath - الرابط النسبي لملف المقال (مثال: 'article-cctv-guide.html').
+ * @param {string} imagePath - الرابط النسبي لصورة المقال (مثال: 'images/news-1.jpg').
+ */
 function shareArticle(title, articlePath, imagePath) {
-    // تحويل الرابط النسبي إلى رابط كامل مع الدومين
+    
+    // 1. تحويل الروابط النسبية إلى روابط كاملة ومطلقة (Absolute URLs)
+    // هذا ضروري لأن منصات التواصل تحتاج للروابط الكاملة التي تبدأ بـ https://
     const fullArticleUrl = new URL(articlePath, window.location.origin).href;
     const fullImageUrl = new URL(imagePath, window.location.origin).href;
 
+    // 2. التحقق مما إذا كان المتصفح يدعم ميزة المشاركة الأصلية (navigator.share)
+    // هذه الميزة مدعومة في معظم متصفحات الموبايل الحديثة (Safari, Chrome, Edge)
     if (navigator.share) {
         navigator.share({
-            title: title,
-            text: title,
-            url: fullArticleUrl
-        }).catch((err) => console.log('تم إلغاء المشاركة'));
-    } else {
-        // إذا كان المتصفح لا يدعم ميزة المشاركة التلقائية يتم نسخ رابط المقال
-        navigator.clipboard.writeText(fullArticleUrl).then(() => {
-            alert('تم نسخ رابط المقال بنجاح!');
-        }).catch(() => {
-            alert('حدث خطأ أثناء نسخ الرابط.');
+            title: title, // عنوان الرسالة
+            text: title + ' - طالع هذا المقال المفيد من مركز المستقبل التقني', // نص الرسالة
+            url: fullArticleUrl // رابط المقال الكامل
+            // ملاحظة: معظم المنصات تقرأ الصورة تلقائياً من og:image داخل fullArticleUrl
+        })
+        .then(() => console.log('تمت المشاركة بنجاح'))
+        .catch((error) => console.log('تم إلغاء المشاركة أو حدث خطأ:', error));
+    } 
+    // 3. الحل البديل (Fallback): إذا كان المتصفح لا يدعم المشاركة (مثل متصفحات الكمبيوتر القديمة)
+    else {
+        // نقوم بنسخ رابط المقال الكامل إلى الحافظة (Clipboard)
+        navigator.clipboard.writeText(fullArticleUrl)
+        .then(() => {
+            // إظهار رسالة تأكيد للمستخدم (يمكنك استبدالها بـ Toast أنيق)
+            alert('تم نسخ رابط المقال بنجاح! يمكنك الآن لصقه ومشاركته.');
+        })
+        .catch((err) => {
+            console.error('فشل نسخ الرابط:', err);
+            alert('عذراً، لم نتمكن من نسخ الرابط تلقائياً. يرجى نسخ الرابط من شريط العنوان.');
         });
     }
 }
