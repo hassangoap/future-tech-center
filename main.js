@@ -405,3 +405,20 @@ function toggleChat() {
     }
 }
 
+// دالة مشاركة المقالات
+function shareArticle(title, url) {
+    if (navigator.share) {
+        navigator.share({
+            title: title,
+            text: title + ' - مركز المستقبل التقني',
+            url: url
+        }).catch((error) => console.log('خطأ في المشاركة:', error));
+    } else {
+        // في حال عدم دعم المتصفح لميزة navigator.share يتم نسخ الرابط
+        navigator.clipboard.writeText(url).then(() => {
+            alert('تم نسخ رابط المقال بنجاح!');
+        }).catch(() => {
+            alert('حدث خطأ أثناء نسخ الرابط.');
+        });
+    }
+}
